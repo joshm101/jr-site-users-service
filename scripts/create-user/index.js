@@ -51,12 +51,13 @@ const onPasswordHashError = (error) => {
  * @param {string} hash - bcrypt hash() output
  * @return {void}
  */
-const onPasswordHashSuccess = (username, hash) => {
+const onPasswordHashSuccess = (username, hash, admin) => (
   User.create({
     username,
-    password: hash
+    password: hash,
+    admin
   }).then(onUserCreationSuccess).catch(onUserCreationError)
-}
+)
 
 /**
  * User creation success handler. Invoked when user data
@@ -75,17 +76,18 @@ const onUserCreationSuccess = (user) => {
  * @param {string} password - User's password to be hashed & stored
  * @return {void}
  */
-const createUser = (username, password) => {
-  validateCredentials(username, password).then(() => {
+const createUser = (username, password, admin = false) => {
+  return validateCredentials(username, password).then(() =>
     bcrypt.hash(
       password, saltRounds
     ).then(hash =>
-      onPasswordHashSuccess(username, hash)
+      onPasswordHashSuccess(username, hash, admin)
     ).catch(onPasswordHashError)
-  }).catch((error) => {
+  ).catch((error) => {
     console.log('An error occurred while validating user credentials:')
     console.error(error.message)
     console.log('The user was not created.')
+    throw new Error('User could not be created.')
   })
 }
 

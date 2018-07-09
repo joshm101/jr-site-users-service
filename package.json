@@ -4,9 +4,10 @@
   "description": "Microservice for jr-site's users",
   "main": "bin/www",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test npm run exec-mocha",
     "start-dev": "cross-env NODE_ENV=development node ./bin/www",
-    "start-prod": "cross-env NODE_ENV=production node ./bin/www"
+    "start-prod": "cross-env NODE_ENV=production node ./bin/www",
+    "exec-mocha": "mocha \"./scripts/**/test.js\" --recursive"
   },
   "author": "Joshua Mora",
   "license": "ISC",

@@ -11,6 +11,6 @@ dbConnect().then(() => {
     console.log(`Listening on port ${port}`)
   })
 }).catch((error) => {
-  console.log('An error occurred while connection to the database.')
+  console.log('An error occurred while connecting to the database.')
   console.error(`${error.message}`)
 })

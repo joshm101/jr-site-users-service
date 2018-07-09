@@ -1,15 +1,39 @@
+const args = require('minimist')(process.argv)
+
 const app = require('../app')
 const dbConnect = require('./utils/db-connect')
+const createUser = require('../scripts/create-user')
 
 const port = process.env.JR_SITE_USERS_SERVICE_PORT || 3005
 
 console.log('Initializing the service...')
 
+const handleUserCreation = (username, password, admin) => {
+  console.log(`Attempting to create user ${username}.`)
+  createUser(username, password, admin).then(() => {
+    console.log(`User ${username} was successfully created.`)
+    console.log('Exiting.')
+    process.exit(0)
+  }).catch(() => {
+    console.log('User creation error.')
+    console.log('Exiting.')
+    process.exit(1)
+  })
+}
+
 dbConnect().then(() => {
   console.log('Database connection successfully established.')
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
-  })
+  const { username, password, admin } = args
+  if (args['create-user'] && username && password) {
+    // All necessary command-line arguments for creating a user
+    // have been provided.
+    handleUserCreation(username, password, admin)
+  } else {
+    // Normal service run
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`)
+    })
+  }
 }).catch((error) => {
   console.log('An error occurred while connecting to the database.')
   console.error(`${error.message}`)

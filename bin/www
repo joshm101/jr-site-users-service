@@ -1,52 +1,11 @@
-const mongoose = require('mongoose')
-
 const app = require('../app')
-const validDevEnv = require('./utils/valid-dev-env')
-const validProdEnv = require('./utils/valid-prod-env')
+const dbConnect = require('./utils/db-connect')
 
-const env = process.env.NODE_ENV || 'development'
 const port = process.env.JR_SITE_USERS_SERVICE_PORT || 3005
 
 console.log('Initializing the service...')
 
-let MONGODB_CONNECTION_URI = ''
-let MONGODB_CONNECTION_USERNAME = ''
-let MONGODB_CONNECTION_PASSWORD = ''
-
-if (env === 'development' && validDevEnv()) {
-  const {
-    JR_SITE_DEV_DB_CONNECTION_URI,
-    JR_SITE_DEV_DB_CONNECTION_USERNAME,
-    JR_SITE_DEV_DB_CONNECTION_PASSWORD
-  } = process.env
-
-  MONGODB_CONNECTION_URI = JR_SITE_DEV_DB_CONNECTION_URI
-  MONGODB_CONNECTION_USERNAME = JR_SITE_DEV_DB_CONNECTION_USERNAME
-  MONGODB_CONNECTION_PASSWORD = JR_SITE_DEV_DB_CONNECTION_PASSWORD
-}
-
-if (env === 'production' && validProdEnv()) {
-  const {
-    JR_SITE_PROD_DB_CONNECTION_URI,
-    JR_SITE_PROD_DB_CONNECTION_USERNAME,
-    JR_SITE_PROD_DB_CONNECTION_PASSWORD
-  } = process.env
-
-  MONGODB_CONNECTION_URI = JR_SITE_PROD_DB_CONNECTION_URI
-  MONGODB_CONNECTION_USERNAME = JR_SITE_PROD_DB_CONNECTION_USERNAME
-  MONGODB_CONNECTION_PASSWORD = JR_SITE_PROD_DB_CONNECTION_PASSWORD
-}
-
-const CONNECTION_STRING = (
-  `mongodb://${MONGODB_CONNECTION_USERNAME}:` +
-  `${encodeURIComponent(MONGODB_CONNECTION_PASSWORD)}@` +
-  `${MONGODB_CONNECTION_URI}`
-)
-
-mongoose.connect(
-  CONNECTION_STRING,
-  { useNewUrlParser: true }
-).then(() => {
+dbConnect().then(() => {
   console.log('Database connection successfully established.')
   app.listen(port, () => {
     console.log(`Listening on port ${port}`)

@@ -7,18 +7,21 @@
     "test": "cross-env NODE_ENV=test npm run exec-mocha",
     "start-dev": "cross-env NODE_ENV=development node ./bin/www",
     "start-prod": "cross-env NODE_ENV=production node ./bin/www",
-    "exec-mocha": "mocha \"./scripts/**/test.js\" --recursive"
+    "exec-mocha": "mocha \"./controllers/**/test.js\" \"./scripts/**/test.js\" --recursive"
   },
   "author": "Joshua Mora",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "minimist": "^1.2.0",
     "mongoose": "^5.2.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.0.1",
     "eslint-config-standard": "^11.0.0",

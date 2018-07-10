@@ -17,6 +17,7 @@ Node.js microservice to manage users for [`jr-site-ui`](https://github.com/joshm
     - `JR_SITE_PROD_DB_CONNECTION_URI`
     - `JR_SITE_PROD_DB_CONNECTION_USERNAME`
     - `JR_SITE_PROD_DB_CONNECTION_PASSWORD`
+  - `JR_SITE_SECRET` - Secret used for signing JWTs (default value: `CHANGE_ME`)
 
 ## To run
 - Clone this repository.

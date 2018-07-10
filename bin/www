@@ -1,4 +1,5 @@
 const args = require('minimist')(process.argv)
+const http = require('http')
 
 const app = require('../app')
 const dbConnect = require('./utils/db-connect')
@@ -29,12 +30,22 @@ dbConnect().then(() => {
     // have been provided.
     handleUserCreation(username, password, admin)
   } else {
-    // Normal service run
-    app.listen(port, () => {
-      console.log(`Listening on port ${port}`)
-    })
+    // // Normal service run
+    // app.listen(port, () => {
+    //   console.log(`Listening on port ${port}`)
+    // })
   }
 }).catch((error) => {
   console.log('An error occurred while connecting to the database.')
   console.error(`${error.message}`)
+  console.log('Exiting.')
+  process.exit(1)
 })
+
+const server = http.createServer(app)
+server.listen(port)
+server.on('listening', () => {
+  console.log(`Listening on port ${port}`)
+})
+
+module.exports = server // for testing

@@ -8,7 +8,7 @@ const { validateCredentials } = utils
 const { expect } = chai
 
 describe('validate credentials', () => {
-  beforeEach((done) => {
+  before((done) => {
     dbConnect().then(() => {
       User.remove({}).then(() => {
         done()

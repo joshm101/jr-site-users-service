@@ -50,12 +50,14 @@ const invalidCredentialsError = (res) => {
  * validated. This function generates a JWT and
  * provides it as a response to the client.
  * @param {object} res - Express response object
+ * @param {object} user - Mongoose model object
  * @return {void}
  */
-const validCredentialsProvided = (res) => {
+const validCredentialsProvided = (res, user) => {
   jwt.sign({
     expiresIn: '2h',
-    issuer: 'jr-site-users-microservice'
+    issuer: 'jr-site-users-microservice',
+    uid: user._id
   }, JR_SITE_SECRET, (error, token) => {
     if (error) {
       onUnknownError(res)
@@ -83,7 +85,7 @@ const onUserExists = (req, res, user) => {
   const { password } = req.body
   bcrypt.compare(password, user.password).then((validPassword) => {
     if (validPassword) {
-      validCredentialsProvided(res)
+      validCredentialsProvided(res, user)
     } else {
       invalidCredentialsError(res)
     }

@@ -95,4 +95,23 @@ describe('change password', () => {
           })
       })
   })
+
+  it('should succeed when passwords match', (done) => {
+    login()
+      .then(res => res.body.data)
+      .then(token => {
+        chai.request(server)
+          .post('/api/change-password')
+          .set('Authorization', `Bearer ${token}`)
+          .send({
+            newPassword: 'some_new_password',
+            newPasswordConfirm: 'some_new_password'
+          })
+          .end((_, res) => {
+            expect(res).to.have.status(200)
+            expect(res.body).to.have.property('message')
+            done()
+          })
+      })
+  })
 })

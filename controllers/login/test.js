@@ -8,7 +8,7 @@ const createUser = require('../../scripts/create-user')
 const User = require('../../models/User')
 
 chai.use(chaiHttp)
-const expect = chai.expect
+const { expect } = chai
 
 describe('user login', () => {
   before((done) => {

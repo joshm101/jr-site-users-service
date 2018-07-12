@@ -35,8 +35,7 @@ const getToken = (req) => {
  * @param {object} req - Express request object to
  * extract token from
  * @param {Function} callback - Callback to invoke
- * @return {object} - Object with boolean properties
- * 'exists' and 'valid' for better consumer interpretation
+ * @return {void}
  */
 const tokenValid = (req, callback) => {
   const token = getToken(req)

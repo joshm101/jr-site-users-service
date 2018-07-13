@@ -20,7 +20,7 @@ const onTokenCheckComplete = (res, err, decoded) => {
   }
 
   if (err) {
-    res.status(401).send({
+    res.status(200).send({
       data: false,
       message: 'An invalid token was provided.'
     })

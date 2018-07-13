@@ -41,18 +41,21 @@ describe('check token validity', () => {
     })
   })
 
-  it('should fail when an invalid token is provided', (done) => {
-    chai.request(server)
-      .get('/api/token-valid')
-      .set('Authorization', 'Bearer abcdefg')
-      .end((_, res) => {
-        expect(res).to.have.status(401)
-        expect(res.body).to.have.property('message')
-        expect(res.body).to.have.property('data')
-        expect(res.body.data).to.equal(false)
-        done()
-      })
-  })
+  it(
+    'should succeed w/ false value response when invalid token provided',
+    (done) => {
+      chai.request(server)
+        .get('/api/token-valid')
+        .set('Authorization', 'Bearer abcdefg')
+        .end((_, res) => {
+          expect(res).to.have.status(200)
+          expect(res.body).to.have.property('message')
+          expect(res.body).to.have.property('data')
+          expect(res.body.data).to.equal(false)
+          done()
+        })
+    }
+  )
 
   it('should succeed when a valid token is provided', (done) => {
     chai.request(server)

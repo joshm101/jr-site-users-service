@@ -25,6 +25,12 @@ Node.js microservice to manage users for [`jr-site-ui`](https://github.com/joshm
 - Development environment:
   - Once the necessary environment variables have been set, run the following `package.json` script: `npm run start-dev`. This will run the microservice locally on port 3005 (default).
   - Once the necessary environment variables have been set, run the following `package.json` script: `npm test`. This will execute the microservice's tests.
+## To run (Docker)
+- The only prerequisites for running this microservice in a container environment are the environment variables listed above and Docker itself installed on the host machine.
+- Once Docker is installed and the necessary environment variables have been set, run one of the shell scripts located at the root of this repository (depending on what envrionment you would like to run), e.g.: `./run-dev.sh`. This will:
+  - Stop and remove an already built/running container for this repository (if it exists).
+  - Build and run this repository in a Docker container (exposed on port specified in `Dockerfile`).
+  - At this point, the microservice will be up and running and ready to take requests.
 
 ## To create a user
 User creation is not a valid/regular use-case for this microservice, however, this microservice does have a manual user creation script available to create a user on-demand. Once you have cloned this repository, installed its dependencies, and set the necessary environment variables, run the following to create a user:

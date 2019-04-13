@@ -1,4 +1,4 @@
-FROM node:8.15
+FROM node:8.15.1
 
 # Create app diretory
 WORKDIR ./app

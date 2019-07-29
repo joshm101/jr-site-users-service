@@ -18,6 +18,7 @@ const tokenValid = (req, callback) => {
     // if the token does not exist, the callback is invoked
     // with undefined parameters.
     callback(undefined, undefined)
+    return
   }
 
   jwt.verify(token, JR_SITE_SECRET, callback)

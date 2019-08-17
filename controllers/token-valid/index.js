@@ -13,14 +13,14 @@ const tokenValidUtil = require('../../utils/token-valid')
 const onTokenCheckComplete = (res, err, decoded) => {
   if (!err && !decoded) {
     // case where a token is not provided
-    res.status(400).send({
+    res.status(401).send({
       message: 'A token was not provided.'
     })
     return
   }
 
   if (err) {
-    res.status(200).send({
+    res.status(401).send({
       data: false,
       message: 'An invalid token was provided.'
     })

@@ -7,7 +7,7 @@
     "test": "cross-env NODE_ENV=test npm run exec-mocha",
     "start-dev": "cross-env NODE_ENV=development node ./bin/www",
     "start-prod": "cross-env NODE_ENV=production node ./bin/www",
-    "exec-mocha": "mocha \"./controllers/**/test.js\" \"./scripts/**/test.js\" --recursive"
+    "exec-mocha": "mocha \"./controllers/**/test.js\" \"./scripts/**/test.js\" --recursive --exit"
   },
   "author": "Joshua Mora",
   "license": "ISC",

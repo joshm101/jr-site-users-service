@@ -34,7 +34,7 @@ describe('check token validity', () => {
         .get('/api/token-valid')
     ]).then((responses) => {
       responses.forEach(response => {
-        expect(response).to.have.status(400)
+        expect(response).to.have.status(401)
         expect(response.body).to.have.property('message')
       })
       done()
@@ -48,7 +48,7 @@ describe('check token validity', () => {
         .get('/api/token-valid')
         .set('Authorization', 'Bearer abcdefg')
         .end((_, res) => {
-          expect(res).to.have.status(200)
+          expect(res).to.have.status(401)
           expect(res.body).to.have.property('message')
           expect(res.body).to.have.property('data')
           expect(res.body.data).to.equal(false)

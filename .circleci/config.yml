@@ -53,6 +53,8 @@ jobs:
 
     steps:
       - setup
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Build & push Docker image
           command: |
